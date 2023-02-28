@@ -7,20 +7,11 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class Listener extends ListenerAdapter {
 
-
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        System.out.println("test");
+        // If message contains `test` (in any case), the bot will reply with `received`.
         if (event.getAuthor().isBot()) { return; }
-        if (!event.getMessage().getContentRaw().contains("test")) { return; }
-        event.getChannel().sendMessage("received").queue();
-        Message message = event.getMessage();
-        String content = message.getContentRaw();
-        MessageChannel channel = event.getChannel();
-        if (content.contains("test")) {
-            channel.sendMessage("recived and prosessed").queue();
-        }
-
+        if (!event.getMessage().getContentRaw().toLowerCase().contains("test")) { return; }
+        event.getMessage().reply("received").queue();
     }
-
 }
